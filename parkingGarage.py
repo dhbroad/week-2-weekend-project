@@ -1,8 +1,8 @@
 class ParkingGarage():
     def __init__(self):
-        self.tickets = []
-        self.parking_spaces = []
-        self.current_ticket = {}
+        self.tickets = 6
+        self.parking_spaces = [1, 2, 3, 4, 5, 6]
+        self.current_ticket = {"paid":False}
 
     def takeTicket(self):
         # decrease the amount of tickets available by 1
@@ -13,19 +13,24 @@ class ParkingGarage():
 
     def payForParking(self):
         # Display an input that waits for an amount from the user and stores it in a variable
-        
-        # if there has been payment, i.e. the payment variable is not empty, the ticket has been paid. Display message
-        print("Payment successful. Please exit the parking garage in the next 15min.")
+        payment = input("Please insert the amount 10.50 for your ticket. ")
 
-        # update currentTicket dictionary key "paid" to True
+        # if there has been payment, i.e. the payment variable is not empty, the ticket has been paid. Display message
+        if payment == "10.50":
+            print("Payment successful. Please exit the parking garage in the next 15min.")
+            # update currentTicket dictionary key "paid" to True
+            self.current_ticket["paid"] = True
+        
 
     def leaveGarage(self):
         # if ticket has been paid
-        print("Thank you! Have a nice day!")
-        
+        if self.current_ticket["paid"] == True:
+            print("Thank you! Have a nice day!")
         # if ticket has not been paid, display an input prompt for payment
-
-        # once paid, display thank you message from above ^^
+        elif self.current_ticket["paid"] == False:
+            self.payForParking()
+            # once paid, display thank you message from above ^^
+            self.leaveGarage()
 
         # update parkingSpaces list to increase by 1
 
@@ -42,4 +47,5 @@ class ParkingGarage():
             # add condition
             self.leaveGarage()
 
-#run code
+parking_garage = ParkingGarage()
+print(parking_garage.current_ticket)
