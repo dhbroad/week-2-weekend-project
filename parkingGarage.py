@@ -1,15 +1,17 @@
 class ParkingGarage():
     def __init__(self):
-        self.tickets = 6
+        self.tickets = [1,2,3,4,5,6]
         self.parking_spaces = [1, 2, 3, 4, 5, 6]
         self.current_ticket = {"paid":False}
 
     def takeTicket(self):
+        print('Please take your ticket.')
+        print(self.tickets[-1])
+        self.tickets.remove(len(self.tickets))
+        print(self.tickets)
         # decrease the amount of tickets available by 1
 
         # decrease the amount of parking spaces available by 1
-
-        pass
 
     def payForParking(self):
         # Display an input that waits for an amount from the user and stores it in a variable
@@ -48,4 +50,4 @@ class ParkingGarage():
             self.leaveGarage()
 
 parking_garage = ParkingGarage()
-print(parking_garage.current_ticket)
+print(parking_garage.takeTicket())
