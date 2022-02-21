@@ -1,6 +1,6 @@
 class ParkingGarage():
     def __init__(self):
-        self.occupancy = [1, 2, 3, 4, 5, 6]
+        self.Ticket = [1, 2, 3, 4, 5, 6]
         self.currentTicket = {
             "1": False,
             "2" : False,
@@ -9,15 +9,14 @@ class ParkingGarage():
             "5" : False,
             "6" : False
             }
-        self.maxOccupancy = 6
+        self.maxTicket = 6
 
     def takeTicket(self):
-        if len(self.occupancy) > 0:
-            print(f"Your ticket number is {self.occupancy[len(self.occupancy)-1]}. Please retain this ticket number as it will be needed for payment.")
-            self.occupancy.pop()
+        if len(self.Ticket) > 0:
+            print(f"Your ticket number is {self.Ticket[len(self.Ticket)-1]}. Please retain this ticket number as it will be needed for payment.")
+            self.Ticket.pop()
         else:
             print("The parking garage is full. Please come back later.")
-
     def payForParking(self):
         while True:
             ticket_number = input("Please enter your ticket number: ")
@@ -34,8 +33,8 @@ class ParkingGarage():
         if self.currentTicket[ticket_number] == True:
             print("Thank you! Have a nice day!")
             self.currentTicket[ticket_number] = False
-            self.occupancy.append(int(ticket_number))
-            self.occupancy.sort()
+            self.Ticket.append(int(ticket_number))
+            self.Ticket.sort()
         elif self.currentTicket[ticket_number] == False:
             print("Sorry, but this ticket hasn't been paid for. Please enter 'pay' in the prompt to begin the payment process.")
 
@@ -57,3 +56,4 @@ class ParkingGarage():
 
 PG = ParkingGarage()
 PG.run()
+
