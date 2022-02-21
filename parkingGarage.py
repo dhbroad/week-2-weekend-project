@@ -1,51 +1,59 @@
 class ParkingGarage():
     def __init__(self):
-        self.tickets = 6
-        self.parking_spaces = [1, 2, 3, 4, 5, 6]
-        self.current_ticket = {"paid":False}
+        self.occupancy = [1, 2, 3, 4, 5, 6]
+        self.currentTicket = {
+            "1": False,
+            "2" : False,
+            "3" : False,
+            "4" : False,
+            "5" : False,
+            "6" : False
+            }
+        self.maxOccupancy = 6
 
     def takeTicket(self):
-        # decrease the amount of tickets available by 1
-
-        # decrease the amount of parking spaces available by 1
-
-        pass
+        if len(self.occupancy) > 0:
+            print(f"Your ticket number is {self.occupancy[len(self.occupancy)-1]}. Please retain this ticket number as it will be needed for payment.")
+            self.occupancy.pop()
+        else:
+            print("The parking garage is full. Please come back later.")
 
     def payForParking(self):
-        # Display an input that waits for an amount from the user and stores it in a variable
-        payment = input("Please insert the amount 10.50 for your ticket. ")
-
-        # if there has been payment, i.e. the payment variable is not empty, the ticket has been paid. Display message
-        if payment == "10.50":
-            print("Payment successful. Please exit the parking garage in the next 15min.")
-            # update currentTicket dictionary key "paid" to True
-            self.current_ticket["paid"] = True
-        
+        while True:
+            ticket_number = input("Please enter your ticket number: ")
+            payment = input("Your cost is $10 for your ticket, please type 10 in the prompt: ")
+            if payment == "10":
+                print("Payment successful. Please exit the parking garage in the next 15 minutes. Thank you and see you soon!")
+                self.currentTicket[ticket_number] = True
+                break
+            else:
+                print(f"Insufficient Funds. Please enter the amount of 10 : ")
 
     def leaveGarage(self):
-        # if ticket has been paid
-        if self.current_ticket["paid"] == True:
+        ticket_number = input("Please enter your ticket number: ")
+        if self.currentTicket[ticket_number] == True:
             print("Thank you! Have a nice day!")
-        # if ticket has not been paid, display an input prompt for payment
-        elif self.current_ticket["paid"] == False:
-            self.payForParking()
-            # once paid, display thank you message from above ^^
-            self.leaveGarage()
+            self.currentTicket[ticket_number] = False
+            self.occupancy.append(int(ticket_number))
+            self.occupancy.sort()
+        elif self.currentTicket[ticket_number] == False:
+            print("Sorry, but this ticket hasn't been paid for. Please enter 'pay' in the prompt to begin the payment process.")
 
-        # update parkingSpaces list to increase by 1
-
-        # update tickets list to increase by 1
-
+        
     def run(self):
         while True:
-            # add condition
-            self.takeTicket()
+            user_input = input("Welcome to the Parking Garage. Please type 'ticket' to take a ticket, 'pay' to pay for your ticket, 'leave' to leave the garage, or 'quit' to exit the prompt. (ticket/pay/leave/quit): ")
+            if user_input.lower() == "ticket":
+                self.takeTicket()
+            elif user_input.lower() == "pay":
+                self.payForParking()
+            elif user_input.lower() == "leave":
+                self.leaveGarage()
+            elif user_input.lower() == "quit":
+                print("Thank you and goodbye!")
+                break
+            else:
+                print("Invalid Response. Please type one of the following options. (ticket/pay/leave/quit): ")
 
-            # add condition
-            self.payForParking()
-
-            # add condition
-            self.leaveGarage()
-
-parking_garage = ParkingGarage()
-print(parking_garage.current_ticket)
+PG = ParkingGarage()
+PG.run()
